@@ -1,8 +1,7 @@
 site_name: My Docs
 theme: readthedocs
 markdown_extensions:
-  - plantuml_markdown:
-      server: http://www.plantuml.com/plantuml
+  - plantuml_markdown
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
