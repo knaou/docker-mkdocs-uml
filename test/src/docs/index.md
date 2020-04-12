@@ -3,10 +3,10 @@ Test
 
 ## PlantUML
 
-```plamantuml
+```plantuml
 A --> B: Link1
 B --> C: Link2
-C --> A: LoopBack
+C --> あ: LoopBack
 ```
 
 ## Mermaid
@@ -15,7 +15,7 @@ C --> A: LoopBack
 graph TD;
   A --> B;
   B --> C;
-  C --> D;
+  C --> あ;
 ```
 
 ## End
