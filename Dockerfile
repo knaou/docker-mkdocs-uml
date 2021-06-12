@@ -9,7 +9,9 @@ RUN mkdir -p /opt/plantuml && \
 	unzip /tmp/font.zip -d /usr/share/fonts/ && \
 	rm /tmp/font.zip && \
 	fc-cache -fv && \
-	pip install mkdocs pymdown-extensions plantuml-markdown mkdocs-material && \
+	pip install mkdocs pymdown-extensions plantuml-markdown \
+    mkdocs-cinder mkdocs-material mkdocs-windmill mkdocs-bootstrap mkdocs-bootstrap4 mkdocs-bootstrap386 \
+    mkdocs-gitbook mkdocs-ivory && \
 	apk del wget unzip gcc
 
 COPY plantuml /usr/bin/plantuml
