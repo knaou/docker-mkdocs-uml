@@ -1,12 +1,14 @@
 Test
 ==========
 
+にほんご日本語。
+
 ## PlantUML
 
 ```plantuml
 A --> B: Link1
 B --> C: Link2
-C --> あ: LoopBack
+C --> 日本語: LoopBack
 ```
 
 ## Mermaid
@@ -15,7 +17,7 @@ C --> あ: LoopBack
 graph TD;
   A --> B;
   B --> C;
-  C --> あ;
+  C --> 日本語;
 ```
 
 ## End
