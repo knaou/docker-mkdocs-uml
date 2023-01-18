@@ -4,8 +4,6 @@
 
 # Push時に利用するダミーDockerレジストリ
 LOCAL_REGISTRY_NAME := local-registry
-LOCAL_REGISTRY_PORT := 15000
-REGISTRY_IMAGE := localhost:${LOCAL_REGISTRY_PORT}/testing-image
 
 .PHONY: help
 help:
@@ -13,7 +11,6 @@ help:
 	@echo "Execute:"
 	@echo "  make dagger                            : Do build"
 	@echo "  make full                              : Do build and E2E test with testing environment"
-	@echo "  make push REGISTRY_IMAGE=repo/img:tag  : Do build and push its image "
 	@echo "  make clean                             : Clean temporary files"
 
 .PHONY: dagger
@@ -22,16 +19,11 @@ dagger: dagger-run
 
 .PHONY: full
 full: test-service-up dagger-run dagger-push e2e-test test-service-down
-	@# 前提環境の立ち上げと、dagger によるテスト及びe2eテストを実行する
-
-.PHONY: push
-push: dagger-push
-	@# イメージをビルドしてpushする
 
 .PHONY: clean
 clean:
 	@# 一時的に作成されたファイルを削除する
-	rm -rf cue.mod
+	rm -rf _build cue.mod
 
 #
 # Dagger tasks
@@ -42,10 +34,9 @@ dagger-run: dagger-prepare
 	@# Dagger によるテスト/ビルドを実行する
 	dagger-cue do build --log-format=plain
 
-.PHONY: dagger-push
 dagger-push: dagger-run
 	@# イメージをPushする
-	PUSH_IMAGE=${REGISTRY_IMAGE} dagger-cue do push --log-format=plain
+	dagger-cue do push_local --log-format=plain
 
 .PHONY: dagger-prepare
 dagger-prepare:
@@ -76,7 +67,7 @@ test-service-down: registry-down
 
 .PHONY: registry-up
 registry-up:
-	docker start ${LOCAL_REGISTRY_NAME} || docker run -d --name=${LOCAL_REGISTRY_NAME} -p ${LOCAL_REGISTRY_PORT}:5000 registry
+	docker start ${LOCAL_REGISTRY_NAME} || docker run -d --name=${LOCAL_REGISTRY_NAME} -p 15000:5000 registry
 
 .PHONY: registry-down
 registry-down:

@@ -9,8 +9,7 @@ dagger.#Plan & {
   // 実行するクライアントの設定
   client: {
     env: {
-      //イメージのpush先
-      PUSH_IMAGE: string | *""
+      REGISTRY_PASS: dagger.#Secret
     }
     filesystem:{
       "./": read: {
@@ -29,9 +28,17 @@ dagger.#Plan & {
       dockerfile: path: "Dockerfile"
     }
     // Pushする
-    push: docker.#Push & {
+    push_local: docker.#Push & {
       image: build.output
-      dest: client.env.PUSH_IMAGE
+      dest: "localhost:15000/testing-image"
+    }
+    push_dockerhub: docker.#Push & {
+      image: build.output
+      dest: "knaou/mkdocs-uml"
+      auth: {
+        username: "knaou"
+        secret: client.env.REGISTRY_PASS
+      }
     }
   }
 }
