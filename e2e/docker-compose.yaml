@@ -1,7 +1,7 @@
 version: "3"
 services:
   e2e:
-    image: knaou/mkdocs-uml
+    image: knaou/mkdocs-uml:${GITHUB_SHA:-latest}
     volumes:
       - ./test:/work/test:ro
       - ../_build/e2e:/result
