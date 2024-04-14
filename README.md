@@ -1,6 +1,6 @@
 # docker-mkdocs-uml
 
-Docker image of mkdocs with plantyml and Japanese font
+Docker image of mkdocs with plantuml and Japanese font
 
 # Quick start
 
